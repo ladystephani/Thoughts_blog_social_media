@@ -8,9 +8,8 @@ app.use(express.json());
 app.use(express.urlencoded({ extended: true }));
 
 mongoose.connect(
-  //heroku || local
-  process.env.MONGODB_URI ||
-    "mongodb://localhost:27017/Thoughts_blog_social_media",
+  //heroku || local create database
+  process.env.MONGODB_URI || "mongodb://localhost:27017/thoughts_blog",
   {
     useNewUrlParser: true,
     useUnifiedTopology: true,
