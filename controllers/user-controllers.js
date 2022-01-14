@@ -33,6 +33,21 @@ const userController = {
       .then((dbData) => res.json(dbData))
       .catch((err) => res.status(400).json(err));
   },
+  addFriend({ params }, res) {
+    User.findOneAndUpdate(
+      { _id: params.userId }, //take from route /:thoughtid
+      { $push: { friends: params.friendId } },
+      { new: true }
+    )
+      .then((dbData) => {
+        if (!dbData) {
+          res.status(404).json({ message: "No user found with this id!" });
+          return;
+        }
+        res.json(dbData);
+      })
+      .catch((err) => res.json(err));
+  },
   updateUser({ params, body }, res) {
     User.findOneAndUpdate({ _id: params.id }, body, { new: true })
       .then((dbData) => {
@@ -54,6 +69,15 @@ const userController = {
         res.json(dbData);
       })
       .catch((err) => res.status(400).json(err));
+  },
+  removeFriend({ params }, res) {
+    User.findOneAndUpdate(
+      { _id: params.userId },
+      { $pull: { friends: params.friendId } },
+      { new: true }
+    )
+      .then((dbData) => res.json(dbData))
+      .catch((err) => res.json(err));
   },
 };
 
