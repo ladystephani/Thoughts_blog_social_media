@@ -14,8 +14,6 @@ const userSchema = new Schema({
     //validation
     match: [/.+@.+\..+/, "Must be an email address!"],
   },
-  thoughts,
-  friends,
 });
 
 const User = model("User", userSchema);
