@@ -37,6 +37,13 @@ const userSchema = new Schema(
   }
 );
 
+userSchema.virtual("countThoughts").get(function () {
+  return this.thoughts.reduce(
+    (total, thought) => total + thought.reactions.length + 1,
+    0
+  );
+});
+
 //for number of friends, count with a virtual property
 userSchema.virtual("countFriends").get(function () {
   return this.friends.length;
